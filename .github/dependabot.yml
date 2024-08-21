@@ -16,15 +16,7 @@
 # ```
 version: 2
 updates:
-  ###
-  # See documentation for possible values
-  #
-  # - `"pip"`
-  - package-ecosystem: "pip"
-    ###
-    # Location of package manifests
-    #
-    # - `"/"`
-    directory: "/"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "pip"
+  directory: "/"
+  schedule:
+    interval: "weekly"

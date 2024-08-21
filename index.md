@@ -1,7 +1,9 @@
 ---
 abstract: This is a collection of Ansible playbooks that will create a CA usable
    for Kubernetes and etcd clusters.
-authors: Xander Harris
+authors:
+   - name: Xander Harris
+     email: xandertheharris@gmail.com
 date: 2024-03-08
 title: Ansible CA
 ---
@@ -11,15 +13,16 @@ title: Ansible CA
 [![GitHub Pages Status](https://img.shields.io/github/actions/workflow/status/edwardtheharris/ansible-k8s-ca/pages.yml?branch=main&style=flat-square&logo=githubpages&label=GitHub%20Pages)](https://edwardtheharris.github.io/ansible-k8s-ca/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/edwardtheharris/ansible-k8s-ca/shell.yml?branch=main&style=flat-square&logo=gnubash&label=ShellCheck)
 
-## Playbooks
+## Roles
 
 ```{toctree}
 :maxdepth: 1
-:caption: Playbooks
+:caption: roles
 
-ca/index
-int/index
-sign/index
+roles/ca/index
+roles/int/index
+roles/sign/index
+roles/secondary/index
 ```
 
 ```{index} playbooks; ca
@@ -28,9 +31,13 @@ sign/index
 ## Readme
 
 ```{toctree}
+:caption: other information
 :maxdepth: 1
 
+.github/index
 readme
+license
+security
 ```
 
 ```{index} metadata; repository

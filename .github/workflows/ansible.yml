@@ -4,7 +4,7 @@
 # ---
 # This action lints Ansible code for quality.
 #
-# ```{literalinclude} .github/workflows/ansible-lint.yml
+# ```{literalinclude} /.github/workflows/ansible-lint.yml
 # :language: yaml
 # :caption: .github/workflows/ansible-lint.yml
 # ```
@@ -14,7 +14,6 @@ on:
     branches: ["main", "stable", "release/v*"]
 jobs:
   build:
-    ###
     # Naming the build is important to use it as a status check
     name: Ansible Lint
     runs-on: ubuntu-latest
@@ -40,6 +39,5 @@ jobs:
           touch /etc/ansible/vault
           echo "Pass" > /etc/ansible/vault
       - name: Run ansible-lint
-        ###
         # or version tag instead of 'main'
         uses: ansible/ansible-lint@main

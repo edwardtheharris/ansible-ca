@@ -1,6 +1,8 @@
 ---
 abstract: This directory contains the playbook to create an intermediate CA.
-authors: Xander Harris
+authors:
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2024-03-08
 title: Intermediate CA
 ---
@@ -10,19 +12,18 @@ title: Intermediate CA
 ```{code-block} shell
 :caption: Create the root CA
 
-ansible-playbook int/site.yml
+ansible-playbook -t int site.yml
 ```
 
 ```{index} ca; intermediate
 ```
 
 ### Intermediate CA Playbook
-<!--
-```{autoyaml} ca/site.yml
-```
--->
 
-```{literalinclude} site.yml
+```{autoyaml} roles/ca/tasks/site.yml
+```
+
+```{literalinclude} /roles/ca/tasks/site.yml
 :language: yaml
 :caption: intermediate ca
 ```

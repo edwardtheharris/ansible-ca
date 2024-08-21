@@ -49,11 +49,3 @@ ca:
       ansible_user: user
       secret_ca_passphrase: secret-ca-passphrase
 ```
-
-```{toctree}
-:caption: Other Information
-
-cicd
-license
-security
-```
