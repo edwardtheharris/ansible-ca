@@ -1,0 +1,110 @@
+---
+- name: Create Intermediate CAs
+  hosts: dc01,dc02
+  become: true
+  tasks:
+    - name: Create private key for new certificate on IA
+      community.crypto.openssl_privatekey:
+        path: >-
+          {{ int_ca.paths.key }}
+      delegate_to: >-
+        {{ ansible_host }}
+    - name: Create certificate signing request (CSR) for new certificate
+      community.crypto.openssl_csr_pipe:
+        basic_constraints:
+          - 'CA:TRUE'
+          - 'pathlen:0'
+        basic_constraints_critical: true
+        key_usage:
+          - keyCertSign
+          - cRLSign
+          - digitalSignature
+        privatekey_path: >-
+          {{ int_ca.paths.key }}
+        subject_alt_name: >-
+          {{ int_ca.subj_alt }}
+      delegate_to: >-
+        {{ ansible_host }}
+      register: csr
+    - name: Check whether certificate exists
+      stat:
+        path: >-
+          {{ int_ca.paths.crt }}
+      delegate_to: >-
+        {{ ansible_host }}
+      register: certificate_exists
+    - name: Read existing certificate if exists
+      ansible.builtin.slurp:
+        src: >-
+          {{ int_ca.paths.crt }}
+      when: certificate_exists.stat.exists
+      delegate_to: >-
+        {{ ansible_host }}
+      register: certificate
+    - name: Sign certificate with our CA
+      community.crypto.x509_certificate_pipe:
+        content: >-
+          {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
+        csr_content: >-
+          {{ csr.csr }}
+        provider: ownca
+        ownca_path: >-
+          {{ ca.paths.ca }}
+        ownca_privatekey_path: >-
+          {{ ca.paths.key }}
+        ownca_privatekey_passphrase: >-
+          {{ secret_ca_passphrase }}
+        ownca_not_after: +36500d  # valid for one year
+        ownca_not_before: "-1d"  # valid since yesterday
+      delegate_to: >-
+        {{ int_ca.ca_host }}
+      register: certificate
+    - name: Write certificate file on IA
+      ansible.builtin.copy:
+        dest: >-
+          {{ int_ca.paths.crt }}
+        content: >-
+          {{ certificate.certificate }}
+      delegate_to: >-
+        {{ ansible_host }}
+    - name: Write certificate file on CA
+      ansible.builtin.copy:
+        dest: >-
+          {{ int_ca.paths.crt }}
+        content: >-
+          {{ certificate.certificate }}
+      delegate_to: >-
+        {{ int_ca.ca_host }}
+- name: Create chain for secondary
+  hosts: dc02
+  become: true
+  tasks:
+    - name: Read existing certificate if exists
+      ansible.builtin.slurp:
+        src: >-
+          {{ int_ca.paths.crt }}
+      when: certificate_exists.stat.exists
+      delegate_to: >-
+        {{ int_ca.ca_host }}
+      register: certificate
+    - name: Complete the cert chain
+      community.crypto.certificate_complete_chain:
+        input_chain: >-
+          {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
+        intermediate_certificates:
+          - /etc/ssl/certs
+        root_certificates:
+          - /etc/ssl/certs/ca.crt
+      delegate_to: >-
+        {{ int_ca.ca_host }}
+      register: chain_cert
+    - name: Write complete chain to disk
+      ansible.builtin.copy:
+        dest: /etc/ssl/certs/ca.bundle.crt
+        content: >-
+          {{ ''.join(chain_cert.complete_chain) }}
+    - name: Write root chain (intermediates and root) to disk
+      ansible.builtin.copy:
+        dest: /etc/ssl/certs/ca.chain.crt
+        content: >-
+          {{ ''.join(chain_cert.chain) }}

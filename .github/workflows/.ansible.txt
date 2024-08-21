@@ -1,0 +1,45 @@
+###
+# ```{rubric} Ansible Lint Jobs
+# ```
+# ---
+# This action lints Ansible code for quality.
+#
+# ```{literalinclude} .github/workflows/ansible-lint.yml
+# :language: yaml
+# :caption: .github/workflows/ansible-lint.yml
+# ```
+name: ansible-lint
+on:
+  pull_request:
+    branches: ["main", "stable", "release/v*"]
+jobs:
+  build:
+    ###
+    # Naming the build is important to use it as a status check
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Set up Python
+        uses: actions/setup-python@main
+        with:
+          python-version: 3.11
+      - name: Install requirements
+        run: |
+          pip3 install pipenv
+          pipenv requirements --categories lint > lint
+          pipenv requirements > reqs
+          pip3 install -r lint
+          pip3 install -r reqs
+          ansible-galaxy collection install community.crypto
+      - name: Make ansible directory
+        run: |
+          sudo mkdir -pv /etc/ansible
+          SUSER=$(whoami)
+          sudo chown ${SUSER} /etc/ansible
+          touch /etc/ansible/vault
+          echo "Pass" > /etc/ansible/vault
+      - name: Run ansible-lint
+        ###
+        # or version tag instead of 'main'
+        uses: ansible/ansible-lint@main

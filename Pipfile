@@ -1,0 +1,42 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ansible = "*"
+ansible-creator = "*"
+ansible-navigator = "*"
+gitpython = "*"
+loguru = "*"
+redis = "*"
+
+[dev-packages]
+molecule = "*"
+pytest = "*"
+pytest-cov = "*"
+
+[docs]
+myst-parser = {extras = ["linkify"], version = "*"}
+sphinx = "*"
+sphinx-ansible = "*"
+sphinx-autobuild = "*"
+sphinx-copybutton = "*"
+sphinx-design = "*"
+sphinx-favicon = "*"
+sphinx-nefertiti = "*"
+sphinx-pyscript = "*"
+sphinx-tippy = "*"
+sphinx-togglebutton = "*"
+sphinxcontrib-autoyaml = "*"
+sphinxemoji = "*"
+sphinxext-opengraph = "*"
+sphinxext-rediraffe = "*"
+sphinx-notfound-page = "*"
+
+[lint]
+ansible-lint = "*"
+
+[git]
+loguru = "*"
+gitpython = "*"

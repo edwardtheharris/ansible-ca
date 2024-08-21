@@ -1,0 +1,64 @@
+---
+- name: Create root CA
+  hosts: ca
+  remote_user: duchess
+  become: true
+  tasks:
+    - name: Clean
+      ansible.builtin.file:
+        state: absent
+        dest: "{{ item }}"
+      loop: "{{ paths }}"
+      tags:
+        - clean
+    - name: Add directories
+      ansible.builtin.file:
+        state: directory
+        group: root
+        owner: root
+        dest: "{{ item }}"
+        mode: 'u+rw,g+rw,o+r'
+      loop: >-
+        {{ ssl_dirs }}
+      tags:
+        - ca
+    - name: Create private key with password protection
+      community.crypto.openssl_privatekey:
+        cipher: auto
+        path: "{{ paths.3 }}"
+        passphrase: "{{ passphrase }}"
+      tags:
+        - ca
+    - name: Create certificate signing request (CSR) for CA certificate
+      community.crypto.openssl_csr:
+        basic_constraints:
+          - 'CA:TRUE'
+        basic_constraints_critical: true
+        common_name: "{{ dn.cn }}"
+        email_address: "root@{{ dn.cn }}"
+        key_usage:
+          - keyCertSign
+          - cRLSign
+          - digitalSignature
+        key_usage_critical: true
+        locality_name: "{{ dn.locality }}"
+        organization_name: "{{ dn.org }}"
+        organizational_unit_name: "{{ dn.unit }}"
+        path: "{{ paths.2 }}"
+        privatekey_passphrase: "{{ passphrase }}"
+        privatekey_path: "{{ paths.3 }}"
+        state_or_province_name: "{{ dn.state }}"
+      tags:
+        - ca
+    - name: Create self-signed CA certificate from CSR
+      community.crypto.x509_certificate:
+        csr_path: "{{ paths.2 }}"
+        path: "{{ paths.0 }}"
+        privatekey_passphrase: "{{ passphrase }}"
+        privatekey_path: "{{ paths.3 }}"
+        provider: selfsigned
+        return_content: true
+        selfsigned_digest: sha256
+      tags:
+        - ca
+      register: certificate
