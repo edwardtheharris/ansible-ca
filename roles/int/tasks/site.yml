@@ -1,0 +1,73 @@
+---
+- name: Create private key for new certificate on IA
+  community.crypto.openssl_privatekey:
+    path: >-
+      {{ int.paths.key }}
+  delegate_to: >-
+    {{ ansible_host }}
+- name: Create certificate signing request (CSR) for new certificate
+  community.crypto.openssl_csr_pipe:
+    basic_constraints:
+      - 'CA:TRUE'
+      - 'pathlen:0'
+    basic_constraints_critical: true
+    key_usage:
+      - keyCertSign
+      - cRLSign
+      - digitalSignature
+    privatekey_path: >-
+      {{ int.paths.key }}
+    subject_alt_name: >-
+      {{ int.subj_alt }}
+  delegate_to: >-
+    {{ ansible_host }}
+  register: csr
+- name: Check whether certificate exists
+  stat:
+    path: >-
+      {{ int.paths.crt }}
+  delegate_to: >-
+    {{ ansible_host }}
+  register: certificate_exists
+- name: Read existing certificate if exists
+  ansible.builtin.slurp:
+    src: >-
+      {{ int.paths.crt }}
+  when: certificate_exists.stat.exists
+  delegate_to: >-
+    {{ ansible_host }}
+  register: certificate
+- name: Sign certificate with our CA
+  community.crypto.x509_certificate_pipe:
+    content: >-
+      {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
+    csr_content: >-
+      {{ csr.csr }}
+    provider: ownca
+    ownca_path: >-
+      {{ ca.paths.ca }}
+    ownca_privatekey_path: >-
+      {{ ca.paths.key }}
+    ownca_privatekey_passphrase: >-
+      {{ secret_ca_passphrase }}
+    ownca_not_after: +36500d  # valid for one year
+    ownca_not_before: "-1d"  # valid since yesterday
+  delegate_to: >-
+    {{ int.ca_host }}
+  register: certificate
+- name: Write certificate file on IA
+  ansible.builtin.copy:
+    dest: >-
+      {{ int.paths.crt }}
+    content: >-
+      {{ certificate.certificate }}
+  delegate_to: >-
+    {{ ansible_host }}
+- name: Write certificate file on CA
+  ansible.builtin.copy:
+    dest: >-
+      {{ int.paths.crt }}
+    content: >-
+      {{ certificate.certificate }}
+  delegate_to: >-
+    {{ int.ca_host }}

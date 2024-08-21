@@ -4,39 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-ansible = "*"
-ansible-creator = "*"
-ansible-navigator = "*"
 gitpython = "*"
 loguru = "*"
-redis = "*"
+pipenv = "*"
+sphinx = "*"
 
 [dev-packages]
-molecule = "*"
-pytest = "*"
-pytest-cov = "*"
-
-[docs]
+"sphinxcontrib.autoyaml" = "*"
 myst-parser = {extras = ["linkify"], version = "*"}
+pylint = "*"
 sphinx = "*"
-sphinx-ansible = "*"
 sphinx-autobuild = "*"
-sphinx-copybutton = "*"
+sphinx-book-theme = "*"
 sphinx-design = "*"
-sphinx-favicon = "*"
-sphinx-nefertiti = "*"
-sphinx-pyscript = "*"
-sphinx-tippy = "*"
-sphinx-togglebutton = "*"
-sphinxcontrib-autoyaml = "*"
-sphinxemoji = "*"
-sphinxext-opengraph = "*"
-sphinxext-rediraffe = "*"
-sphinx-notfound-page = "*"
+version-query = "*"
 
-[lint]
-ansible-lint = "*"
-
-[git]
-loguru = "*"
-gitpython = "*"
+[pipenv]
+allow_prereleases = true

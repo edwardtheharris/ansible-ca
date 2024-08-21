@@ -1,6 +1,8 @@
 ---
 abstract: This directory contains the playbook to create the initial root CA.
-authors: Xander Harris
+authors:
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2024-03-08
 title: Root CA
 ---
@@ -10,7 +12,7 @@ title: Root CA
 ```{code-block} shell
 :caption: Create the root CA
 
-ansible-playbook ca/site.yml
+ansible-playbook -t ca site.yml
 ```
 
 ```{index} ca; playbook
@@ -18,14 +20,12 @@ ansible-playbook ca/site.yml
 
 ### Root CA Playbook
 
-```{literalinclude} site.yml
+```{literalinclude} /roles/ca/tasks/site.yml
 :language: yaml
 :caption: root ca
 ```
 
 There should be proper comments below this line.
-<!--
-```{ansible-task}
-- include_tasks: ca/site.yml
+
+```{autoyaml} roles/ca/tasks/site.yml
 ```
--->

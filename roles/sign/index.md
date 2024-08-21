@@ -1,6 +1,8 @@
 ---
 abstract: This directory contains the playbook to sign a certificate.
-authors: Xander Harris
+authors:
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2024-03-08
 title: Sign a Cert
 ---
@@ -10,19 +12,18 @@ title: Sign a Cert
 ```{code-block} shell
 :caption: sign a certificate
 
-ansible-playbook sign/site.yml
+ansible-playbook -t sign site.yml
 ```
 
 ```{index} certificate; sign
 ```
 
 ## Signing Playbook
-<!--
-```{autoyaml} sign/site.yml
-```
--->
 
-```{literalinclude} site.yml
+```{autoyaml} roles/sign/tasks/site.yml
+```
+
+```{literalinclude} /roles/sign/tasks/site.yml
 :language: yaml
 :caption: sign a cert
 ```

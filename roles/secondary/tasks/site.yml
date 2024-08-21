@@ -1,0 +1,29 @@
+- name: Read existing certificate if exists
+  ansible.builtin.slurp:
+    src: >-
+      {{ int_ca.paths.crt }}
+  when: certificate_exists.stat.exists
+  delegate_to: >-
+    {{ int_ca.ca_host }}
+  register: certificate
+- name: Complete the cert chain
+  community.crypto.certificate_complete_chain:
+    input_chain: >-
+      {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
+    intermediate_certificates:
+      - /etc/ssl/certs
+    root_certificates:
+      - /etc/ssl/certs/ca.crt
+  delegate_to: >-
+    {{ int_ca.ca_host }}
+  register: chain_cert
+- name: Write complete chain to disk
+  ansible.builtin.copy:
+    dest: /etc/ssl/certs/ca.bundle.crt
+    content: >-
+      {{ ''.join(chain_cert.complete_chain) }}
+- name: Write root chain (intermediates and root) to disk
+  ansible.builtin.copy:
+    dest: /etc/ssl/certs/ca.chain.crt
+    content: >-
+      {{ ''.join(chain_cert.chain) }}
