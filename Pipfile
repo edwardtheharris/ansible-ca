@@ -8,6 +8,7 @@ gitpython = "*"
 loguru = "*"
 pipenv = "*"
 sphinx = "*"
+ansible-lint = "*"
 
 [dev-packages]
 "sphinxcontrib.autoyaml" = "*"

@@ -1,0 +1,96 @@
+---
+- name: int | Clean existing int directories
+  ansible.builtin.file:
+    dest: >-
+      {{ item }}
+    state: absent
+  loop: >-
+    {{ int_dirs }}
+
+- name: int | Create clean directories
+  ansible.builtin.file:
+    dest: >-
+      {{ item }}
+    state: directory
+    owner: root
+    group: root
+    mode: ug+rwx,o-rwx
+  loop: >-
+    {{ int_dirs }}
+
+- name: int | Ensure openssl
+  community.general.pacman:
+    name: openssl
+    update_cache: true
+    state: present
+
+
+- name: int | Create private key for new certificate on IA
+  community.crypto.openssl_privatekey:
+    path: >-
+      {{ int_path_key }}
+
+- name: int | Create certificate signing request (CSR) for new certificate
+  community.crypto.openssl_csr:
+    basic_constraints:
+      - 'CA:TRUE'
+      - 'pathlen:0'
+    basic_constraints_critical: true
+    key_usage:
+      - keyCertSign
+      - cRLSign
+      - digitalSignature
+    path: >-
+      {{ int_path_csr }}
+    privatekey_path: >-
+      {{ int_path_key }}
+    subject_alt_name: >-
+      {{ item }}
+  loop:
+    - >-
+        {{ int_san }}
+    - >-
+        {{ ca_san }}
+  register: csr
+
+- name: int | Check whether certificate exists
+  stat:
+    path: >-
+      {{ int_path_crt }}
+  register: certificate_exists
+
+- name: int | Read existing certificate if exists
+  ansible.builtin.slurp:
+    src: >-
+      {{ int_path_crt }}
+  when: certificate_exists.stat.exists
+  register: certificate
+
+- name: int | Sign certificate with our CA
+  community.crypto.x509_certificate:
+    content: >-
+      {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
+    csr_path: >-
+      {{ int_path_csr }}
+    path: >-
+      {{ int_path_crt }}
+    provider: ownca
+    ownca_path: >-
+      {{ int_ca_path_crt }}
+    ownca_privatekey_path: >-
+      {{ int_ca_path_key }}
+    ownca_not_after: +36500d  # valid for one year
+    ownca_not_before: "-1d"  # valid since yesterday
+  register: certificate
+  delegate_to: ca.breeze-blocks.net
+
+- name: int | Output certificate
+  debug:
+    var: certificate
+
+- name: int | Write certificate file on IA
+  ansible.builtin.copy:
+    dest: >-
+      {{ int_path_crt }}
+    content: >-
+      {{ certificate[inventory_hostname].certificate }}

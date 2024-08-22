@@ -1,0 +1,49 @@
+- name: Generate Private Key
+  community.crypto.openssl_privatekey:
+    path: >-
+      {{ sign_path_key }}
+    size: 4096
+    type: RSA
+
+- name: Ensure CSR directory
+  ansible.builtin.file:
+    dest: "/etc/ssl/csr"
+    state: directory
+    owner: root
+    group: root
+    mode: >-
+      ug+rwx,o-rwx
+
+- name: Generate CSR
+  community.crypto.openssl_csr:
+    common_name: >-
+      {{ sign_cn }}
+    group: root
+    mode: >-
+      ug+rw
+    owner: root
+    path: >-
+      {{ sign_path_csr }}
+    privatekey_path: >-
+      {{ sign_path_key }}
+    subject_alt_name: >-
+      {{ ca_san }}
+
+- name: Store CSR
+  ansible.builtin.copy:
+    dest: >-
+      {{ np.csr }}
+    content: >-
+      {{ csr.csr }}
+
+- name: Sign Certificate
+  community.crypto.x509_certificate:
+    privatekey_path: >-
+      {{ np.key }}
+    csr_path: >-
+      {{ np.csr }}
+    ownca_path: >-
+      {{ int_ca.paths.crt }}
+    ownca_privatekey_path: >-
+      {{ int_ca.paths.key }}
+    provider: ownca

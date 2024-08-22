@@ -20,10 +20,10 @@ ansible-playbook -t sign site.yml
 
 ## Signing Playbook
 
-```{autoyaml} roles/sign/tasks/site.yml
+```{autoyaml} roles/sign/tasks/main.yml
 ```
 
-```{literalinclude} /roles/sign/tasks/site.yml
+```{literalinclude} /roles/sign/tasks/main.yml
 :language: yaml
 :caption: sign a cert
 ```

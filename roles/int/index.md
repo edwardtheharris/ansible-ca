@@ -20,10 +20,10 @@ ansible-playbook -t int site.yml
 
 ### Intermediate CA Playbook
 
-```{autoyaml} roles/ca/tasks/site.yml
+```{autoyaml} roles/ca/tasks/main.yml
 ```
 
-```{literalinclude} /roles/ca/tasks/site.yml
+```{literalinclude} /roles/ca/tasks/main.yml
 :language: yaml
 :caption: intermediate ca
 ```

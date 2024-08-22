@@ -18,12 +18,12 @@ ansible-playbook -t secondary site.yml
 ```{index} ca; intermediate
 ```
 
-### Intermediate CA Playbook
+### Secondary Intermediate CA Playbook
 
-```{autoyaml} roles/secondary/tasks/site.yml
+```{autoyaml} roles/secondary/tasks/main.yml
 ```
 
-```{literalinclude} /roles/secondary/tasks/site.yml
+```{literalinclude} /roles/secondary/tasks/main.yml
 :language: yaml
-:caption: intermediate ca
+:caption:
 ```
