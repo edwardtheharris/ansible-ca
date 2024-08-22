@@ -20,12 +20,12 @@ ansible-playbook -t ca site.yml
 
 ### Root CA Playbook
 
-```{literalinclude} /roles/ca/tasks/site.yml
+```{literalinclude} /roles/ca/tasks/main.yml
 :language: yaml
 :caption: root ca
 ```
 
 There should be proper comments below this line.
 
-```{autoyaml} roles/ca/tasks/site.yml
+```{autoyaml} roles/ca/tasks/main.yml
 ```

@@ -1,15 +1,16 @@
 ---
-name: Create root CA
-hosts: ca
-remote_user: duchess
-become: true
-roles:
-  - role: ca
-    tags:
-      - ca
-  - role: int
-    tags:
-      - int
-  - role: sign
-    tags:
-      - sign
+- name: Create root CA
+  hosts: ca.breeze-blocks.net
+  remote_user: duchess
+  become: true
+  roles:
+    - role: ca
+      tags:
+        - ca
+        - private_key
+    - role: int
+      tags:
+        - int
+    - role: sign
+      tags:
+        - sign
