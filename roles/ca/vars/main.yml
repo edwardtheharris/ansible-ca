@@ -1,0 +1,11 @@
+---
+ca_dirs:
+  - /etc/ssl/root/private
+  - /etc/ssl/root/certs
+  - /etc/ssl/root/csr
+  - /etc/ssl/root
+ca_org_unit: Engineering
+ca_path_key: /etc/ssl/root/private/ca.key
+ca_path_crt: /etc/ssl/root/certs/ca.crt
+ca_path_csr: /etc/ssl/root/csr/ca.csr
+ca_state: California

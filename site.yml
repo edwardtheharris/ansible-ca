@@ -8,6 +8,11 @@
       tags:
         - ca
         - private_key
+- name: Create int CA
+  hosts: ca.breeze-blocks.net,int.breeze-blocks.net
+  remote_user: duchess
+  become: true
+  roles:
     - role: int
       tags:
         - int
