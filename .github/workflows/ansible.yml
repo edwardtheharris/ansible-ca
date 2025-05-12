@@ -4,35 +4,38 @@
 # ---
 # This action lints Ansible code for quality.
 #
-# ```{literalinclude} /.github/workflows/ansible-lint.yml
+# ```{literalinclude} .github/workflows/ansible-lint.yml
 # :language: yaml
 # :caption: .github/workflows/ansible-lint.yml
 # ```
-name: ansible-lint
+name: Ansible Lint
 on:
   pull_request:
     branches: ["main", "stable", "release/v*"]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 jobs:
   build:
+    ###
     # Naming the build is important to use it as a status check
     name: Ansible Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-        with:
-          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@main
         with:
-          python-version: 3.11
+          python-version: 3.12
       - name: Install requirements
         run: |
-          pip3 install pipenv
-          pipenv requirements --categories lint > lint
-          pipenv requirements > reqs
-          pip3 install -r lint
-          pip3 install -r reqs
+          python3 -m venv .venv
+          .venv/bin/pip3 install pipenv
+          .venv/bin/pipenv requirements --dev > reqs
+          python3 -m pip install -r reqs
           ansible-galaxy collection install community.crypto
+          ansible-galaxy collection install community.general
       - name: Make ansible directory
         run: |
           sudo mkdir -pv /etc/ansible
@@ -41,5 +44,6 @@ jobs:
           touch /etc/ansible/vault
           echo "Pass" > /etc/ansible/vault
       - name: Run ansible-lint
+        ###
         # or version tag instead of 'main'
         uses: ansible/ansible-lint@main
