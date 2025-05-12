@@ -47,7 +47,8 @@
     key_usage:
       - keyCertSign
     key_usage_critical: true
-    locality_name: Los Angeles
+    locality_name: >-
+      {{ ca_locality }}
     mode: >-
       ug+rw,o-rwx
     organization_name: >-
