@@ -1,16 +1,23 @@
 ---
 - name: Create root CA
-  hosts: ca.breeze-blocks.net
-  remote_user: duchess
+  hosts: localhost
   become: true
   roles:
     - role: ca
       tags:
         - ca
         - private_key
+      vars:
+        ca_email: user@domain.com
+        ca_locality: Los Angeles
+        ca_org: IANA
+        ca_org_unit: Engineering
+        ca_san:
+          - DNS:iana.domain.com
+          - email:user@domain.com
+        ca_state: California
 - name: Create int CA
-  hosts: ca.breeze-blocks.net,int.breeze-blocks.net
-  remote_user: duchess
+  hosts: localhost
   become: true
   roles:
     - role: int

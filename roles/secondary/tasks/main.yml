@@ -1,3 +1,4 @@
+---
 - name: Read existing certificate if exists
   ansible.builtin.slurp:
     src: >-
