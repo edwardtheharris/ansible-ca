@@ -34,7 +34,6 @@ passed in as parameters) is always nice for users too:
       - { role: username.rolename, x: 42 }
 ```
 
-
 ## License
 
 BSD
