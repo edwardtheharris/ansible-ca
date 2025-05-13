@@ -21,6 +21,9 @@ def get_release():
 
 
 author = "Xander Harris"
+autoyaml_depth = "10"
+autoyaml_root = "."
+autoyaml_safe_loader = False
 
 copyright = "2024, Xander Harris"
 
@@ -49,6 +52,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "sphinx_design",
+    "sphinxcontrib.autoyaml",
 ]
 
 favicons = [
@@ -70,6 +74,7 @@ favicons = [
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
+html_favicon = "_static/img/ansible-16x16.png"
 html_logo = "_static/img/ansible.png"
 html_static_path = ["_static"]
 html_theme = "sphinx_book_theme"
