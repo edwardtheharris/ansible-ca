@@ -1,4 +1,21 @@
 ---
-sign_cn: lb.breeze-blocks.net
-sign_path_csr: /etc/ssl/csr/lb.csr
-sign_path_key: /etc/ssl/private/lb.key
+sign_ca_san:
+  - DNS:ca.iana.org
+  - email:user@iana.org
+sign_cert_san:
+  - DNS:cert.iana.org
+  - email:user@iana.org
+sign_common_name: cert.iana.org
+sign_int_path_crt: /etc/ssl/root/int/certs/int.crt
+sign_int_path_key: /etc/ssl/root/int/private/int.key
+sign_int_san:
+  - DNS:int.iana.org
+  - email:user@iana.org
+sign_dirs:
+  - /etc/ssl/certs
+  - /etc/ssl/csr
+  - /etc/ssl/private
+  - /etc/ssl
+sign_path_crt: /etc/ssl/certs/iana.crt
+sign_path_csr: /etc/ssl/csr/iana.csr
+sign_path_key: /etc/ssl/private/iana.key
