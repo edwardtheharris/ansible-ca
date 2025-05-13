@@ -28,14 +28,12 @@ jobs:
         uses: actions/setup-python@main
         with:
           python-version: 3.12
-      - name: Install requirements
-        run: |
-          python3 -m venv .venv
-          .venv/bin/pip3 install pipenv
-          .venv/bin/pipenv requirements --dev > reqs
-          python3 -m pip install -r reqs
-          ansible-galaxy collection install community.crypto
-          ansible-galaxy collection install community.general
+      - name: Install venv
+        run: python3 -m venv .venv
+      - name: Add requirements
+        run: .venv/bin/python3 -m pip install -U pip ansible ansible-lint
+      - name: Install galaxy collections
+        run: ansible-galaxy collection install {community.crypto,community.general}
       - name: Make ansible directory
         run: |
           sudo mkdir -pv /etc/ansible
