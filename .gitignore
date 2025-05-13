@@ -1,7 +1,9 @@
-_build/
+*.xcf
+markdownlint-cli2-junit.xml
+.ansible/
+.gnupg/
+.secret/
 .venv/
 .vscode/
-.secret/
-*.xcf
-.gnupg/
+_build/
 reflog

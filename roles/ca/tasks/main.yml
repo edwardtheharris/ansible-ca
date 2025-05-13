@@ -1,8 +1,9 @@
-  ###
-  # ```{rubric} Clean
-  # ```
-  # ---
-  # Clean existing directories.
+---
+###
+# ```{rubric} Clean
+# ```
+# ---
+# Clean existing directories.
 - name: ca | Clean
   ansible.builtin.file:
     state: absent
@@ -18,7 +19,7 @@
     owner: root
     dest: >-
       {{ item }}
-    mode: 'ug+rwx,o-rwx'
+    mode: "ug+rwx,o-rwx"
   loop: >-
     {{ ca_dirs }}
 
@@ -36,7 +37,7 @@
 - name: ca | Create certificate signing request (CSR) for CA certificate
   community.crypto.openssl_csr:
     basic_constraints:
-      - 'CA:TRUE'
+      - "CA:TRUE"
     basic_constraints_critical: true
     common_name: >-
       {{ inventory_hostname }}
@@ -47,7 +48,8 @@
     key_usage:
       - keyCertSign
     key_usage_critical: true
-    locality_name: Los Angeles
+    locality_name: >-
+      {{ ca_locality }}
     mode: >-
       ug+rw,o-rwx
     organization_name: >-

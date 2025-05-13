@@ -88,7 +88,7 @@ jobs:
   # ```
   build:
     needs: markdownlint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
@@ -126,7 +126,7 @@ jobs:
   # ```
   pages:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
