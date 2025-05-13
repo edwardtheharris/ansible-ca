@@ -1,10 +1,14 @@
 ---
 abstract: The readme for some Ansible playbooks that have the goal of deploying
-    a Root Certificate Authority to a Linux host.
+  a Root Certificate Authority to a Linux host.
 authors: Xander Harris
 date: 2024-03-08
 title: Ansible CA Readme
 ---
+
+[![Ansible Lint](https://github.com/edwardtheharris/ansible-ca/actions/workflows/ansible.yml/badge.svg)](https://github.com/edwardtheharris/ansible-ca/actions/workflows/ansible.yml)
+[![Documentation](https://github.com/edwardtheharris/ansible-ca/actions/workflows/documentation.yml/badge.svg)](https://github.com/edwardtheharris/ansible-ca/actions/workflows/documentation.yml)
+[![ShellCheck](https://github.com/edwardtheharris/ansible-ca/actions/workflows/shell.yml/badge.svg)](https://github.com/edwardtheharris/ansible-ca/actions/workflows/shell.yml)
 
 ## Assumptions
 
