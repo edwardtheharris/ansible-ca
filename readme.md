@@ -6,6 +6,9 @@ date: 2024-03-08
 title: Ansible CA Readme
 ---
 
+[![Ansible Lint](https://github.com/edwardtheharris/ansible-ca/actions/workflows/ansible.yml/badge.svg)](https://github.com/edwardtheharris/ansible-ca/actions/workflows/ansible.yml)
+[![Documentation](https://github.com/edwardtheharris/ansible-ca/actions/workflows/documentation.yml/badge.svg)](https://github.com/edwardtheharris/ansible-ca/actions/workflows/documentation.yml)
+
 ## Assumptions
 
 The default configuration assumes a vault password exists at

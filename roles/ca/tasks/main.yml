@@ -1,9 +1,4 @@
 ---
-###
-# ```{rubric} Clean
-# ```
-# ---
-# Clean existing directories.
 - name: ca | Clean
   ansible.builtin.file:
     state: absent
