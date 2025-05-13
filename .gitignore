@@ -1,7 +1,8 @@
-_build/
+*.xcf
+.ansible/
+.gnupg/
+.secret/
 .venv/
 .vscode/
-.secret/
-*.xcf
-.gnupg/
+_build/
 reflog

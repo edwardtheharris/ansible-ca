@@ -24,7 +24,6 @@
     update_cache: true
     state: present
 
-
 - name: int | Create private key for new certificate on IA
   community.crypto.openssl_privatekey:
     path: >-
@@ -33,8 +32,8 @@
 - name: int | Create certificate signing request (CSR) for new certificate
   community.crypto.openssl_csr:
     basic_constraints:
-      - 'CA:TRUE'
-      - 'pathlen:0'
+      - "CA:TRUE"
+      - "pathlen:0"
     basic_constraints_critical: true
     key_usage:
       - keyCertSign
@@ -48,9 +47,9 @@
       {{ item }}
   loop:
     - >-
-        {{ int_san }}
+      {{ int_san }}
     - >-
-        {{ ca_san }}
+      {{ ca_san }}
   register: csr
 
 - name: int | Check whether certificate exists
@@ -79,8 +78,8 @@
       {{ int_ca_path_crt }}
     ownca_privatekey_path: >-
       {{ int_ca_path_key }}
-    ownca_not_after: +36500d  # valid for one year
-    ownca_not_before: "-1d"  # valid since yesterday
+    ownca_not_after: +36500d # valid for one year
+    ownca_not_before: "-1d" # valid since yesterday
   register: certificate
   delegate_to: ca.breeze-blocks.net
 
