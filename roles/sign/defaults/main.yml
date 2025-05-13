@@ -1,3 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# defaults file for sign
+sign_cn: lb.breeze-blocks.net
+sign_path_csr: /etc/ssl/csr/lb.csr
+sign_path_key: /etc/ssl/private/lb.key
