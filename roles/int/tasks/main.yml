@@ -81,7 +81,8 @@
     ownca_not_after: +36500d # valid for one year
     ownca_not_before: "-1d" # valid since yesterday
   register: certificate
-  delegate_to: ca.breeze-blocks.net
+  delegate_to: >-
+    {{ ca_host }}
 
 - name: int | Output certificate
   debug:
