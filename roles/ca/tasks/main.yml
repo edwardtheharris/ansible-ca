@@ -1,0 +1,75 @@
+---
+- name: ca | Clean
+  ansible.builtin.file:
+    state: absent
+    dest: >-
+      {{ item }}
+  loop: >-
+    {{ ca_dirs }}
+
+- name: ca | Add directories
+  ansible.builtin.file:
+    state: directory
+    group: root
+    owner: root
+    dest: >-
+      {{ item }}
+    mode: "ug+rwx,o-rwx"
+  loop: >-
+    {{ ca_dirs }}
+
+- name: ca | Install opnessl
+  community.general.pacman:
+    name: openssl
+    state: present
+    update_cache: true
+
+- name: ca | Create private key
+  community.crypto.openssl_privatekey:
+    path: >-
+      {{ ca_path_key }}
+
+- name: ca | Create certificate signing request (CSR) for CA certificate
+  community.crypto.openssl_csr:
+    basic_constraints:
+      - "CA:TRUE"
+    basic_constraints_critical: true
+    common_name: >-
+      {{ inventory_hostname }}
+    country_name: US
+    email_address: >-
+      {{ ca_email }}
+    group: root
+    key_usage:
+      - keyCertSign
+    key_usage_critical: true
+    locality_name: >-
+      {{ ca_locality }}
+    mode: >-
+      ug+rw,o-rwx
+    organization_name: >-
+      {{ ca_org }}
+    organizational_unit_name: >-
+      {{ ca_org_unit }}
+    owner: root
+    path: >-
+      {{ ca_path_csr }}
+    privatekey_path: >-
+      {{ ca_path_key }}
+    subject_alt_name: >-
+      {{ ca_san }}
+    state_or_province_name: >-
+      {{ ca_state }}
+    use_common_name_for_san: false
+  register: ca_csr
+
+- name: ca | Create self-signed CA certificate from CSR
+  community.crypto.x509_certificate:
+    backup: true
+    path: >-
+      {{ ca_path_crt }}
+    csr_path: >-
+      {{ ca_path_csr }}
+    privatekey_path: >-
+      {{ ca_path_key }}
+    provider: selfsigned

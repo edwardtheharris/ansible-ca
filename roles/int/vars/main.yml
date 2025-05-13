@@ -1,0 +1,11 @@
+---
+int_ca_path_crt: /etc/ssl/root/certs/ca.crt
+int_ca_path_key: /etc/ssl/root/private/ca.key
+int_dirs:
+  - /etc/ssl/int
+  - /etc/ssl/int/certs
+  - /etc/ssl/int/csr
+  - /etc/ssl/int/private
+int_path_key: /etc/ssl/int/private/int.key
+int_path_crt: /etc/ssl/int/certs/int.crt
+int_path_csr: /etc/ssl/int/csr/int.csr

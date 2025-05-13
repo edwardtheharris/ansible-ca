@@ -1,0 +1,81 @@
+###
+# ```{rubric} Update Metadata
+# ```
+# ---
+# Set issue and PR metadata without human intervention.
+#
+# ```{literalinclude} /.github/workflows/metadata.yml
+# :language: yaml
+# :start-at: "name: Update Metadata\n"
+# :end-before: "####\n"
+# ```
+name: Update Metadata
+on:
+  issues: {}
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+####
+
+###
+# ```{rubric} Metadata Action Jobs
+# ```
+# ---
+# Update issue metadata.
+#
+# ```{literalinclude} /.github/workflows/metadata.yml
+# :language: yaml
+# :start-at: "jobs:\n"
+# :end-before: "####\n"
+# ```
+jobs:
+  add_labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+      - name: add labels
+        uses: actions-ecosystem/action-add-labels@main
+        with:
+          github_token: ${{ secrets.PROJECT_PAT }}
+          labels: |
+            ${{ github.event.pull_request.base.ref }}
+  assign-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: assign
+        uses: toshimaru/auto-author-assign@main
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@main
+        with:
+          # You can target a project in a different organization
+          # to the issue
+          project-url: https://github.com/users/edwardtheharris/projects/5
+          github-token: ${{ secrets.PROJECT_PAT }}
+  add-to-milestone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: benelan/milestone-action@v3
+        with:
+          # If true, add the milestone with the farthest due date. By default,
+          # the action adds the current milestone (closest due date).
+          farthest: false
+
+          # If true, overwrite existing milestones on issues and pull requests.
+          # By default, the action exits if a milestone has already been added.
+          overwrite: true
+
+          # If true, add the only open milestone in a repo, even if there is no
+          # due date. By default, milestones with no due date are ignored.
+          single: true
+####

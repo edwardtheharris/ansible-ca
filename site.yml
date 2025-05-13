@@ -1,15 +1,46 @@
 ---
-name: Create root CA
-hosts: ca
-remote_user: duchess
-become: true
-roles:
-  - role: ca
-    tags:
-      - ca
-  - role: int
-    tags:
-      - int
-  - role: sign
-    tags:
-      - sign
+- name: Create root CA
+  hosts: localhost
+  become: true
+  roles:
+    - role: ca
+      tags:
+        - ca
+        - private_key
+      vars:
+        ca_email: user@domain.com
+        ca_locality: Los Angeles
+        ca_org: IANA
+        ca_org_unit: Engineering
+        ca_san:
+          - DNS:iana.domain.com
+          - email:user@domain.com
+        ca_state: California
+- name: Create int CA
+  hosts: localhost
+  become: true
+  roles:
+    - role: int
+      tags:
+        - int
+      vars:
+        ca_host: localhost
+        ca_san:
+          - DNS:ca.iana.org
+          - email:user@iana.org
+        int_ca_path_crt: /etc/ssl/root/certs/ca.crt
+        int_ca_path_key: /etc/ssl/root/private/ca.key
+        int_dirs:
+          - /etc/ssl/root/int/private
+          - /etc/ssl/root/int/certs
+          - /etc/ssl/root/int/csr
+          - /etc/ssl/root/int
+        int_path_key: /etc/ssl/root/int/private/int.key
+        int_path_crt: /etc/ssl/root/int/certs/int.crt
+        int_path_csr: /etc/ssl/root/int/csr/int.csr
+        int_san:
+          - DNS:int.iana.org
+          - email:user@iana.org
+    - role: sign
+      tags:
+        - sign

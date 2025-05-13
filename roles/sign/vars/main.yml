@@ -1,0 +1,4 @@
+---
+sign_cn: lb.breeze-blocks.net
+sign_path_csr: /etc/ssl/csr/lb.csr
+sign_path_key: /etc/ssl/private/lb.key

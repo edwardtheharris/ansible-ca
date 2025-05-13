@@ -10,20 +10,22 @@ title: Intermediate CA
 ## Intermediate CA Usage
 
 ```{code-block} shell
-:caption: Create the root CA
+:caption: create the intermediate CA
 
 ansible-playbook -t int site.yml
 ```
 
 ```{index} ca; intermediate
+
 ```
 
 ### Intermediate CA Playbook
 
-```{autoyaml} roles/ca/tasks/site.yml
-```
-
-```{literalinclude} /roles/ca/tasks/site.yml
+```{literalinclude} /roles/ca/tasks/main.yml
 :language: yaml
 :caption: intermediate ca
+```
+
+```{toctree}
+README
 ```

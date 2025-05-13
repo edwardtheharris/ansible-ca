@@ -45,7 +45,6 @@ permissions:
 # jobs that can run sequentially or in parallel
 #
 jobs:
-
   ###
   # ```{rubric} markdownlint
   # ```
@@ -88,7 +87,7 @@ jobs:
   # ```
   build:
     needs: markdownlint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
@@ -106,13 +105,13 @@ jobs:
         run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
       - name: Install Python dependencies
         run: |
-          pipenv install --categories docs
+          pipenv install --dev
       - name: Build the static site
         run: pipenv run sphinx-build -a -E . deploy
       - name: Upload artifact
         uses: actions/upload-pages-artifact@main
         with:
-          path: './deploy'
+          path: "./deploy"
 
   ###
   # ```{rubric} Deploy the Pages site
@@ -126,7 +125,7 @@ jobs:
   # ```
   pages:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
