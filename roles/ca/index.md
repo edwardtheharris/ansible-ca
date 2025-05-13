@@ -16,6 +16,7 @@ ansible-playbook -t ca site.yml
 ```
 
 ```{index} ca; playbook
+
 ```
 
 ### Root CA Playbook
@@ -25,7 +26,6 @@ ansible-playbook -t ca site.yml
 :caption: root ca
 ```
 
-There should be proper comments below this line.
-
-```{autoyaml} roles/ca/tasks/main.yml
+```{toctree}
+README
 ```

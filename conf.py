@@ -6,49 +6,53 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 """
+
 # pylint: disable=invalid-name,redefined-builtin
 
 from pathlib import Path
 import version_query
 
+
 def get_release():
     """Query the current release for the project."""
-    repo_path = Path('.')
+    repo_path = Path(".")
     ret_value = version_query.git_query.query_git_repo(repo_path).to_str()
     return ret_value
 
-author = 'Xander Harris'
+
+author = "Xander Harris"
+autoyaml_depth = "10"
 autoyaml_root = "."
-autoyaml_depth = 10
 autoyaml_safe_loader = False
 
-copyright = '2024, Xander Harris'
+copyright = "2024, Xander Harris"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 exclude_patterns = [
-    '_build',
-    'Thumbs.db',
-    '.DS_Store',
-    '.venv/*',
-    '.tmp/*',
-    '.pytest_cache/*',
-    '.venv/',
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    ".venv/*",
+    ".tmp/*",
+    ".pytest_cache/*",
+    ".venv/",
 ]
 
 extensions = [
-    'myst_parser',
-    'sphinx_design',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosectionlabel',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.duration',
-    'sphinx.ext.extlinks',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.inheritance_diagram',
-    'sphinxcontrib.autoyaml',
+    "myst_parser",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.duration",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.intersphinx",
+    "sphinx_copybutton",
+    "sphinx_design",
+    "sphinxcontrib.autoyaml",
 ]
 
 favicons = [
@@ -70,11 +74,12 @@ favicons = [
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_logo = '_static/img/ansible.png'
-html_static_path = ['_static']
-html_theme = 'sphinx_book_theme'
+html_favicon = "_static/img/ansible-16x16.png"
+html_logo = "_static/img/ansible.png"
+html_static_path = ["_static"]
+html_theme = "sphinx_book_theme"
 html_theme_options = {
-    'repository_url': 'https://github.com/edwardtheharris/ansible-k8s-nodes',
+    "repository_url": "https://github.com/edwardtheharris/ansible-k8s-nodes",
 }
 myst_dmath_double_inline = True
 myst_enable_extensions = [
@@ -95,11 +100,8 @@ myst_enable_extensions = [
     "tasklist",
 ]
 myst_title_to_header = True
-project = 'Ansible K8S Nodes'
-release = '0.0.1'
+project = "Ansible CA"
+release = "0.0.3"
 show_authors = True
-source_suffix = {
-    '.md': 'markdown',
-    '.rst': 'restructuredText'
-}
-templates_path = ['_templates']
+source_suffix = {".md": "markdown", ".rst": "restructuredText"}
+templates_path = ["_templates"]
