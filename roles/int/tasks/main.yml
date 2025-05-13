@@ -87,10 +87,3 @@
 - name: int | Output certificate
   debug:
     var: certificate
-
-- name: int | Write certificate file on IA
-  ansible.builtin.copy:
-    dest: >-
-      {{ int_path_crt }}
-    content: >-
-      {{ certificate[inventory_hostname].certificate }}
