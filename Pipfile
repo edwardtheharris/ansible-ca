@@ -7,9 +7,10 @@ name = "pypi"
 gitpython = "*"
 loguru = "*"
 sphinx = "*"
-ansible-lint = "*"
 pipenv = "*"
 redis = "*"
+ansible-lint = "*"
+ansible-navigator = "*"
 
 [dev-packages]
 "sphinxcontrib.autoyaml" = "*"
