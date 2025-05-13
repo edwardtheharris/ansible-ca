@@ -1,4 +1,5 @@
 *.xcf
+markdownlint-cli2-junit.xml
 .ansible/
 .gnupg/
 .secret/
