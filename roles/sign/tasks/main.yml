@@ -13,15 +13,39 @@
     state: directory
     owner: root
     group: root
-    mode: ug+rwx,o-rwx
+    mode: ug+rwx,o+rx,o-rwx
   loop: >-
     {{ sign_dirs }}
 
 - name: sign | Generate CSR
   community.crypto.openssl_csr:
+    authority_cert_issuer: >-
+      {{ sign_int_san }}
+    authority_cert_serial_number: >-
+      {{
+      (
+      lookup('ansible.builtin.file', '/etc/ssl/root/int/certs/int.crt')
+      | community.crypto.x509_certificate_info
+      ).serial_number
+      }}
+    basic_constraints:
+      - "CA:FALSE"
+    basic_constraints_critical: true
+    key_usage:
+      - digitalSignature
+    group: root
     common_name: >-
       {{ sign_common_name }}
-    group: root
+    country_name: >-
+      {{ sign_country_name }}
+    locality_name: >-
+      {{ sign_locality_name }}
+    organization_name: >-
+      {{ sign_organization_name }}
+    organizational_unit_name: >-
+      {{ sign_organizational_unit_name }}
+    state_or_province_name: >-
+      {{ sign_state_or_province_name }}
     mode: >-
       ug+rw
     owner: root
@@ -30,14 +54,9 @@
     privatekey_path: >-
       {{ sign_path_key }}
     subject_alt_name: >-
-      {{ item }}
-  loop:
-    - >-
-      {{ sign_int_san }}
-    - >-
-      {{ sign_ca_san }}
-    - >-
       {{ sign_cert_san }}
+    subject_alt_name_critical: true
+  register: csr
 
 - name: sign | Sign Certificate
   community.crypto.x509_certificate:
@@ -49,6 +68,7 @@
       {{ sign_int_path_crt }}
     ownca_privatekey_path: >-
       {{ sign_int_path_key }}
+    ownca_create_subject_key_identifier: always_create
     provider: ownca
     path: >-
       {{ sign_path_crt }}
