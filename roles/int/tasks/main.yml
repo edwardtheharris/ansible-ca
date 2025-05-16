@@ -1,12 +1,4 @@
 ---
-- name: int | Clean existing int directories
-  ansible.builtin.file:
-    dest: >-
-      {{ item }}
-    state: absent
-  loop: >-
-    {{ int_dirs }}
-
 - name: int | Create clean directories
   ansible.builtin.file:
     dest: >-
@@ -14,42 +6,64 @@
     state: directory
     owner: root
     group: root
-    mode: ug+rwx,o-rwx
+    mode: ug+rwx,o+rx,o-w
   loop: >-
     {{ int_dirs }}
-
-- name: int | Ensure openssl
-  community.general.pacman:
-    name: openssl
-    update_cache: true
-    state: present
 
 - name: int | Create private key for new certificate on IA
   community.crypto.openssl_privatekey:
     path: >-
       {{ int_path_key }}
 
+- name: int | Output serial number
+  debug:
+    msg: >-
+      {{
+      (
+      lookup('ansible.builtin.file', '/etc/ssl/root/certs/ca.crt')
+      | community.crypto.x509_certificate_info
+      ).serial_number
+      }}
+
 - name: int | Create certificate signing request (CSR) for new certificate
   community.crypto.openssl_csr:
+    authority_cert_issuer: >-
+      {{ ca_san }}
+    authority_cert_serial_number: >-
+      {{
+      (
+      lookup('ansible.builtin.file', '/etc/ssl/root/certs/ca.crt')
+      | community.crypto.x509_certificate_info
+      ).serial_number
+      }}
     basic_constraints:
       - "CA:TRUE"
       - "pathlen:0"
     basic_constraints_critical: true
+    email_address: >-
+      {{ int_email }}
     key_usage:
       - keyCertSign
       - cRLSign
       - digitalSignature
+    common_name: >-
+      {{ int_common_name }}
+    country_name: >-
+      {{ int_country_name }}
+    locality_name: >-
+      {{ int_locality_name }}
+    organization_name: >-
+      {{ int_organization_name }}
+    organizational_unit_name: >-
+      {{ int_organizational_unit_name }}
+    state_or_province_name: >-
+      {{ int_state_or_province_name }}
     path: >-
       {{ int_path_csr }}
     privatekey_path: >-
       {{ int_path_key }}
     subject_alt_name: >-
-      {{ item }}
-  loop:
-    - >-
       {{ int_san }}
-    - >-
-      {{ ca_san }}
   register: csr
 
 - name: int | Check whether certificate exists
@@ -67,8 +81,6 @@
 
 - name: int | Sign certificate with our CA
   community.crypto.x509_certificate:
-    content: >-
-      {{ (certificate.content | b64decode) if certificate_exists.stat.exists else omit }}
     csr_path: >-
       {{ int_path_csr }}
     path: >-
@@ -80,9 +92,8 @@
       {{ int_ca_path_key }}
     ownca_not_after: +36500d # valid for one year
     ownca_not_before: "-1d" # valid since yesterday
+    ownca_create_subject_key_identifier: always_create
   register: certificate
-  delegate_to: >-
-    {{ ca_host }}
 
 - name: int | Output certificate
   debug:
