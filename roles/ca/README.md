@@ -12,15 +12,15 @@ title: Root CA Readme
 that authority or any of its subsidiaries
 ```
 
-## Requirements
+## Root CA Requirements
 
 You will need [OpenSSL](https://www.openssl.org/) on an [ArchLinux](https://archlinux.org)
 system in order for this role
 to work. If you want to use something other than Arch, you'll need to
-update the [commmunity.general.pacman](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html#ansible-collections-community-general-pacman-module)tasks to use the package manager
-of your choice.
+update the [commmunity.general.pacman](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html#ansible-collections-community-general-pacman-module)
+tasks to use the package manager of your choice.
 
-## Role Variables
+## Root CA Role Variables
 
 This role requires the following variables to be set.
 
@@ -82,13 +82,13 @@ They can be installed using the bash below.
 ansible-galaxy collection install {community.general,community.crypto}
 ```
 
-## Example Playbook
+## Root CA Example Playbook
 
 Including an example of how to use your role (for instance, with variables
 passed in as parameters) is always nice for users too:
 
 ```{code-block} yaml
-:caption: example playbook
+:caption: root ca example playbook
 
 - name: Create root CA
   hosts: localhost
@@ -111,10 +111,14 @@ passed in as parameters) is always nice for users too:
 
 ## License
 
-This software is {doc}`/license`
+[Unlicense](../../license.md)
 
 ## Author Information
 
 ```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+
+```
+
+```{codeauthor} Xander Harris <xandertheharris@gmail.com>
 
 ```

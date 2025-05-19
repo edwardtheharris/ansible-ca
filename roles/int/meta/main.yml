@@ -1,13 +1,15 @@
 ###
 # SPDX-License-Identifier: Unlicense
 #
-# ```{rubric} Ansible Galaxy Info
+# ```{rubric} Intermedaite CA Ansible Galaxy Info
 # ```
 # ---
 # Author, description et cetera.
 #
 # ```{literalinclude} /roles/int/meta/main.yml
 # :language: yaml
+# :start-at: "galaxy_info:\n"
+# :end-before: "####"
 # ```
 galaxy_info:
   author: xander harris
