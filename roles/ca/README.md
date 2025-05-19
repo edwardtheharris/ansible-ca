@@ -17,8 +17,7 @@ that authority or any of its subsidiaries
 You will need [OpenSSL](https://www.openssl.org/) on an [ArchLinux](https://archlinux.org)
 system in order for this role
 to work. If you want to use something other than Arch, you'll need to
-update the [commmunity.general.pacman](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html#ansible-collections-community-general-pacman-module)
-tasks to use the package manager
+update the [commmunity.general.pacman](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html#ansible-collections-community-general-pacman-module)tasks to use the package manager
 of your choice.
 
 ## Role Variables
