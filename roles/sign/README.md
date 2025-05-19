@@ -77,16 +77,18 @@ This role requires the following variables to be set.
 The following roles should have been run on the target
 before using this role.
 
-- edwardtheharris.ca]()
-- [edwardtheharris.int]()
+- [ca](../ca/README.md)
+- [int](../int/README.md)
 
 ## Example Playbook
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+The {file}`site.yml` at the root of this repo contains a complete
+example of usage for this role.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```{literalinclude} /site.yml
+:language: yaml
+:start-at: "- name: Sign End User Certificate"
+```
 
 ## License
 
@@ -94,4 +96,10 @@ Including an example of how to use your role (for instance, with variables passe
 
 ## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```{codeauthor} Xander Harris <xandertheharris@gmail.com>
+
+```
+
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+
+```
