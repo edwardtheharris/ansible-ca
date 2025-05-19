@@ -10,13 +10,15 @@ date: 2025-05-19
 title: Certificate Signing Readme
 ---
 
-## Requirements
+## Certificate Sign Requirements
 
 This role assumes the presence of [openssl](https://openssl.org) on an
 [ArchLinux](https://artchlinux.org) system along with services that can
 be verified by globally-untrusted authorities.
 
-## Role Variables
+## Certificate Sign Role Variables
+
+This role requires the following variables to be set.
 
 ````{list-table}
 :header-rows: 1
@@ -24,50 +26,59 @@ be verified by globally-untrusted authorities.
 - - variable
   - description
   - default
-- - `ca_dirs`
-  - a list of directories required by the root ca
-  - ```{code-block} yaml
-    - /etc/ssl/root/private
-    - /etc/ssl/root/certs
-    - /etc/ssl/root/csr
-    - /etc/ssl/root
-    ```
 - - `sign_ca_san`
   - the subject alternative names for the ca
-  - - `DNS:ca.iana.org`
-    - `email:user@iana.org`
+  - ```{code-block} yaml
+    - DNS:ca.iana.org
+    - email:user@iana.org
+    ```
 - - `sign_cert_san`
   - the subject altnerative names for the signed cert
-  - - `DNS:cert.iana.org`
-    - `email:user@iana.org`
+  - ```{code-block} yaml
+    - DNS:cert.iana.org
+    - email:user@iana.org
+    ```
+- - `sign_common_name`
+  - the common name to be associated with the signed cert
+  - `cert.iana.org`
 - - `sign_int_path_crt`
   - filesystem path to the intermediate authority cert
   - `/etc/ssl/root/int/certs/int.crt`
-- - `ca_org_unit`
-  - organization department used by the ca
-  - `Engineering`
-- - `ca_path_key`
-  - path to the ca private key
-  - `/etc/ssl/root/private/ca.key`
-- - `ca_path_crt`
+- - `sign_int_path_key`
+  - filesystem path to the intermediate authority private key
+  - `/etc/ssl/root/int/private/int.key`
+- - `sign_int_san`
+  - subject alternative names for the intermediate cert
+  - ```{code-block} yaml
+    - DNS:int.iana.org
+    - email:user@iana.org
+    ```
+- - `sign_dirs`
+  - a list of directories required by the signed cert
+  - ```{code-block} yaml
+    - /etc/ssl/root/int/private
+    - /etc/ssl/root/int/certs
+    - /etc/ssl/root/int/csr
+    - /etc/ssl/root/int
+    ```
+- - `sign_path_crt`
   - path to the ca crt
-  - `/etc/ssl/root/certs/ca.crt`
-- - `ca_path_csr`
+  - `/etc/ssl/root/int/certs/iana.org.crt`
+- - `sign_path_csr`
   - path to the certificate signing request
-  - `/etc/ssl/root/csr/ca.csr`
-- - `ca_san`
+  - `/etc/ssl/root/int/csr/iana.org.csr`
+- - `sign_path_key`
   - a list of subject alternative names for the ca
-  - `user@email.com`
-- - `ca_state`
-  - a state or region in which the ca was made
-  - `California`
+  - `/etc/ssl/root/int/private/iana.org.key`
 ````
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
 ## Dependencies
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The following roles should have been run on the target
+before using this role.
+
+- edwardtheharris.ca]()
+- [edwardtheharris.int]()
 
 ## Example Playbook
 
@@ -79,7 +90,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 ## License
 
-BSD
+[Unlicense](../../license.md)
 
 ## Author Information
 

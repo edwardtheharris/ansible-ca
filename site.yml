@@ -41,6 +41,30 @@
         int_san:
           - DNS:int.iana.org
           - email:user@iana.org
+- name: Sign End User Certificate
+  hosts: localhost
+  roles:
     - role: sign
       tags:
         - sign
+      vars:
+        sign_ca_san:
+          - DNS:ca.iana.org
+          - email:user@iana.org
+        sign_cert_san:
+          - DNS:cert.iana.org
+          - email:user@iana.org
+        sign_common_name: cert.iana.org
+        sign_int_path_crt: /etc/ssl/root/int/certs/int.crt
+        sign_int_path_key: /etc/ssl/root/int/private/int.key
+        sign_int_san:
+          - DNS:int.iana.org
+          - email:user@iana.org
+        sign_dirs:
+          - /etc/ssl/root/int/certs
+          - /etc/ssl/root/int/csr
+          - /etc/ssl/root/int/private
+          - /etc/ssl/root/int
+        sign_path_crt: /etc/ssl/root/int/certs/iana.crt
+        sign_path_csr: /etc/ssl/rott/int/csr/iana.csr
+        sign_path_key: /etc/ssl/root/int/private/iana.key

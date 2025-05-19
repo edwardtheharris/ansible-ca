@@ -21,14 +21,12 @@ ansible-playbook -t sign site.yml
 
 ## Signing Playbook
 
-```{autoyaml} roles/sign/tasks/main.yml
-
-```
-
 ```{literalinclude} /roles/sign/tasks/main.yml
 :language: yaml
 :caption: sign a cert
 ```
+
+### Sign Role Metadata
 
 ```{autoyaml} roles/sign/meta/main.yml
 
@@ -36,4 +34,8 @@ ansible-playbook -t sign site.yml
 
 ```{toctree}
 README
+```
+
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+
 ```

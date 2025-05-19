@@ -12,10 +12,10 @@ sign_int_san:
   - DNS:int.iana.org
   - email:user@iana.org
 sign_dirs:
-  - /etc/ssl/certs
-  - /etc/ssl/csr
-  - /etc/ssl/private
-  - /etc/ssl
-sign_path_crt: /etc/ssl/certs/iana.crt
-sign_path_csr: /etc/ssl/csr/iana.csr
-sign_path_key: /etc/ssl/private/iana.key
+  - /etc/ssl/root/int/certs
+  - /etc/ssl/root/int/csr
+  - /etc/ssl/root/int/private
+  - /etc/ssl/root/int
+sign_path_crt: /etc/ssl/root/int/certs/iana.crt
+sign_path_csr: /etc/ssl/rott/int/csr/iana.csr
+sign_path_key: /etc/ssl/root/int/private/iana.key
