@@ -8,13 +8,22 @@
         - ca
         - private_key
       vars:
-        ca_email: user@domain.com
-        ca_locality: Los Angeles
-        ca_org: IANA
+        ca_common_name: ca.iana.org
+        ca_dirs:
+          - /etc/ssl/root/private
+          - /etc/ssl/root/certs
+          - /etc/ssl/root/csr
+          - /etc/ssl/root
+        ca_email: user@iana.org
+        ca_localilty: Los Angeles
+        ca_org: Internet Assigned Numbers Authority
         ca_org_unit: Engineering
+        ca_path_key: /etc/ssl/root/private/ca.key
+        ca_path_crt: /etc/ssl/root/certs/ca.crt
+        ca_path_csr: /etc/ssl/root/csr/ca.csr
         ca_san:
-          - DNS:iana.domain.com
-          - email:user@domain.com
+          - DNS:ca.iana.org
+          - email:user@iana.org
         ca_state: California
 - name: Create int CA
   hosts: localhost
@@ -41,6 +50,30 @@
         int_san:
           - DNS:int.iana.org
           - email:user@iana.org
+- name: Sign End User Certificate
+  hosts: localhost
+  roles:
     - role: sign
       tags:
         - sign
+      vars:
+        sign_ca_san:
+          - DNS:ca.iana.org
+          - email:user@iana.org
+        sign_cert_san:
+          - DNS:cert.iana.org
+          - email:user@iana.org
+        sign_common_name: cert.iana.org
+        sign_int_path_crt: /etc/ssl/root/int/certs/int.crt
+        sign_int_path_key: /etc/ssl/root/int/private/int.key
+        sign_int_san:
+          - DNS:int.iana.org
+          - email:user@iana.org
+        sign_dirs:
+          - /etc/ssl/root/int/certs
+          - /etc/ssl/root/int/csr
+          - /etc/ssl/root/int/private
+          - /etc/ssl/root/int
+        sign_path_crt: /etc/ssl/root/int/certs/iana.crt
+        sign_path_csr: /etc/ssl/rott/int/csr/iana.csr
+        sign_path_key: /etc/ssl/root/int/private/iana.key

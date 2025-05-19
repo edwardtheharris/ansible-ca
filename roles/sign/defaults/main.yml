@@ -1,3 +1,4 @@
+#SPDX-License-Identifier: Unlicense
 ---
 sign_ca_san:
   - DNS:ca.iana.org
@@ -11,11 +12,10 @@ sign_int_path_key: /etc/ssl/root/int/private/int.key
 sign_int_san:
   - DNS:int.iana.org
   - email:user@iana.org
-sign_dirs:
-  - /etc/ssl/root/int/certs
-  - /etc/ssl/root/int/csr
-  - /etc/ssl/root/int/private
-  - /etc/ssl/root/int
-sign_path_crt: /etc/ssl/root/int/certs/iana.crt
-sign_path_csr: /etc/ssl/rott/int/csr/iana.csr
-sign_path_key: /etc/ssl/root/int/private/iana.key
+sign_paths:
+  - /etc/ssl/certs/
+  - /etc/ssl/csr/
+  - /etc/ssl/private/
+sign_path_crt: /etc/ssl/certs/iana.crt
+sign_path_csr: /etc/ssl/csr/iana.csr
+sign_path_key: /etc/ssl/private/iana.key

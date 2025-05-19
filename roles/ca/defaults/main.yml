@@ -1,4 +1,5 @@
 ---
+ca_common_name: ca.iana.org
 ca_dirs:
   - /etc/ssl/root/private
   - /etc/ssl/root/certs

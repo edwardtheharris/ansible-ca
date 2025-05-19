@@ -1,14 +1,14 @@
 ###
 # SPDX-License-Identifier: Unlicense
 #
-# ```{rubric} Ansible Galaxy CA Role
+# ```{rubric} Ansible Galaxy Info
 # ```
 # ---
 # Author, description et cetera.
 galaxy_info:
   author: xander harris
-  description: generate a self-signed certificate authority
-  company: the harris
+  description: sign a local client certificate
+  company: breeze blocks international
 
   ###
   # If the issue tracker for your role is not on github, uncomment the
@@ -26,8 +26,6 @@ galaxy_info:
   # - CC-BY-4.0
   license: Unlicense
 
-  ###
-  # Minimum usable Ansible version
   min_ansible_version: >-
     2.18
 
@@ -50,14 +48,8 @@ galaxy_info:
     - authority
 
 ###
-# ```{rubric} Dependencies
-# ```
-# ---
 # List your role dependencies here, one per line. Be sure to remove the '[]' above,
 # if you add dependencies to this list.
-#
-# ```{literalinclude} /roles/ca/meta/main.yml
-# :language:
-# :start-at: "dependencies: []"
-# ```
-dependencies: []
+dependencies:
+  - edwardtheharris.ca
+  - edwardtheharris.int

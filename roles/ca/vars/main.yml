@@ -1,12 +1,18 @@
 ---
+ca_common_name: ca.iana.org
 ca_dirs:
   - /etc/ssl/root/private
   - /etc/ssl/root/certs
   - /etc/ssl/root/csr
   - /etc/ssl/root
-ca_email: ca@email.com
+ca_email: user@iana.org
+ca_localilty: Los Angeles
+ca_org: Internet Assigned Numbers Authority
 ca_org_unit: Engineering
 ca_path_key: /etc/ssl/root/private/ca.key
 ca_path_crt: /etc/ssl/root/certs/ca.crt
 ca_path_csr: /etc/ssl/root/csr/ca.csr
+ca_san:
+  - DNS:ca.iana.org
+  - email:user@iana.org
 ca_state: California

@@ -19,6 +19,12 @@ ansible-playbook -t ca site.yml
 
 ```
 
+### Root CA readme
+
+```{toctree}
+README
+```
+
 ### Root CA Playbook
 
 ```{literalinclude} /roles/ca/tasks/main.yml
@@ -26,6 +32,10 @@ ansible-playbook -t ca site.yml
 :caption: root ca
 ```
 
-```{toctree}
-README
+```{codeauthor} xander harris <xandertheharris@gmail.com>
+
+```
+
+```{sectionauthor} xander harris <xandertheharris@gmail.com>
+
 ```
