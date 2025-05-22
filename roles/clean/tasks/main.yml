@@ -1,0 +1,11 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: clean | Clean ca directories
+  ansible.builtin.file:
+    state: absent
+    dest: >-
+      {{ item }}
+  loop: >-
+    {{ ca_dirs }}
+
+# tasks file for clean
