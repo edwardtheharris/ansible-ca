@@ -1,0 +1,5 @@
+#SPDX-License-Identifier: MIT-0
+---
+ca_dirs:
+  - /etc/ssl/root
+# vars file for clean

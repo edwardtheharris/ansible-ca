@@ -6,17 +6,6 @@
     size: 4096
     type: RSA
 
-- name: sign | Ensure ssl directories
-  ansible.builtin.file:
-    dest: >-
-      {{ item }}
-    state: directory
-    owner: root
-    group: root
-    mode: ug+rwx,o+rx,o-rwx
-  loop: >-
-    {{ sign_dirs }}
-
 - name: sign | Generate CSR
   community.crypto.openssl_csr:
     authority_cert_issuer: >-

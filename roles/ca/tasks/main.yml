@@ -1,12 +1,4 @@
 ---
-- name: ca | Clean
-  ansible.builtin.file:
-    state: absent
-    dest: >-
-      {{ item }}
-  loop: >-
-    {{ ca_dirs }}
-
 - name: ca | Add directories
   ansible.builtin.file:
     state: directory
