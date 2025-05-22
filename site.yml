@@ -6,7 +6,6 @@
     - role: ca
       tags:
         - ca
-        - private_key
       vars:
         ca_common_name: ca.iana.org
         ca_dirs:
@@ -25,6 +24,12 @@
           - DNS:ca.iana.org
           - email:user@iana.org
         ca_state: California
+    - role: clean
+      tags:
+        - clean
+      vars:
+        ca_dirs:
+          - /etc/ssl/root
 - name: Create int CA
   hosts: localhost
   become: true
@@ -33,8 +38,8 @@
       tags:
         - int
       vars:
-        ca_host: localhost
-        ca_san:
+        int_ca_host: localhost
+        int_ca_san:
           - DNS:ca.iana.org
           - email:user@iana.org
         int_ca_path_crt: /etc/ssl/root/certs/ca.crt
