@@ -180,3 +180,7 @@ as the general purpose usage above. You will need to deploy a CA
 for your intended Kubernetes cluster and use that CA to create and sign
 server and client certificates for both the Kubernetes services and the
 required [etcd](https://github.com/edwardtheharris/ansible-etcd) cluster.
+
+More information about creating as Certificate Authority with OpenSSL
+can be found in the
+[OpenSSL Certificate Authority Reference](https://jamielinux.com/docs/openssl-certificate-authority/introduction.html).
