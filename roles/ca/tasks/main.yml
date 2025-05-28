@@ -27,6 +27,7 @@
     group: root
     key_usage:
       - keyCertSign
+      - cRLSign
     key_usage_critical: true
     locality_name: >-
       {{ ca_locality }}
