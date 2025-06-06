@@ -1,15 +1,4 @@
 ---
-- name: int | Create clean directories
-  ansible.builtin.file:
-    dest: >-
-      {{ item }}
-    state: directory
-    owner: root
-    group: root
-    mode: ug+rwx,o+rx,o-w
-  loop: >-
-    {{ int_dirs }}
-
 - name: int | Create private key for new certificate on IA
   community.crypto.openssl_privatekey:
     path: >-
@@ -20,7 +9,7 @@
     msg: >-
       {{
       (
-      lookup('ansible.builtin.file', '/etc/ssl/root/certs/ca.crt')
+      lookup('ansible.builtin.file', '/etc/ssl/certs/ca.crt')
       | community.crypto.x509_certificate_info
       ).serial_number
       }}
@@ -28,11 +17,11 @@
 - name: int | Create certificate signing request (CSR) for new certificate
   community.crypto.openssl_csr:
     authority_cert_issuer: >-
-      {{ ca_san }}
+      {{ int_ca_san }}
     authority_cert_serial_number: >-
       {{
       (
-      lookup('ansible.builtin.file', '/etc/ssl/root/certs/ca.crt')
+      lookup('ansible.builtin.file', '/etc/ssl/certs/ca.crt')
       | community.crypto.x509_certificate_info
       ).serial_number
       }}
