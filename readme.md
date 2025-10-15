@@ -34,7 +34,7 @@ for use in verifying any sort of service that requires TLS.
 The default {file}`site.yml` is shown below.
 
 ```{code-block} yaml
-:language: yaml
+:caption: example site.yml
 
 - name: Create root CA
   hosts: localhost
