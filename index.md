@@ -19,6 +19,7 @@ title: Ansible CA
 :caption: roles
 
 roles/ca/index
+roles/clean/index
 roles/int/index
 roles/sign/index
 roles/secondary/index

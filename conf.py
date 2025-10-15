@@ -25,7 +25,7 @@ autoyaml_depth = "10"
 autoyaml_root = "."
 autoyaml_safe_loader = False
 
-copyright = "2024, Xander Harris"
+project_copyright = "2024-%Y, Xander Harris. All rights reserved."
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -43,7 +43,7 @@ exclude_patterns = [
 extensions = [
     "myst_parser",
     "sphinx.ext.autodoc",
-    "sphinx.ext.autosectionlabel",
+    # "sphinx.ext.autosectionlabel",
     "sphinx.ext.autosummary",
     "sphinx.ext.duration",
     "sphinx.ext.extlinks",
@@ -102,6 +102,12 @@ myst_enable_extensions = [
 myst_title_to_header = True
 project = "Ansible CA"
 release = "0.0.3"
+rst_epilog = """
+   .. topic:: <SUDO>
+      
+      <SUDO>
+   .. sectionauthor:: Xander Harris <xandertheharris@gmail.com>
+"""
 show_authors = True
 source_suffix = {".md": "markdown", ".rst": "restructuredText"}
 templates_path = ["_templates"]
