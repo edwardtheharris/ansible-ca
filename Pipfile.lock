@@ -824,12 +824,12 @@
         },
         "redis": {
             "hashes": [
-                "sha256:3acf92039a8bda335d6d6cfac7cb277f2e658bcf2cc1d49930e3d64589865fbe",
-                "sha256:bb701e8e71f4d4079850fa28add216f2994075e4cc35fb636234aca9c41b6057"
+                "sha256:4977af3c7d67f8f0eb8b6fec0dafc9605db9343142f634041fb0235f67c0588a",
+                "sha256:c949df947dca995dc68fdf5a7863950bf6df24f8d6022394585acc98e81624f1"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==7.0.0b3"
+            "version": "==7.0.1"
         },
         "referencing": {
             "hashes": [
