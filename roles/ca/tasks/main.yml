@@ -1,4 +1,13 @@
 ---
+- name: ca | Install EasyRSA
+  community.general.pacman:
+    executable: yay
+    name: easy-rsa
+    state: present
+  become: true
+  become_user: >-
+    {{ ca_user }}
+
 - name: ca | Add directories
   ansible.builtin.file:
     state: directory

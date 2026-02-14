@@ -16,3 +16,4 @@ ca_san:
   - DNS:ca.iana.org
   - email:user@iana.org
 ca_state: California
+ca_user: duchess
