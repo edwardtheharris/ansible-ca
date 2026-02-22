@@ -57,12 +57,12 @@
         },
         "ansible-navigator": {
             "hashes": [
-                "sha256:60ecbff10b938929773a8093d7e9f07532cd3c96ebf1bfa509bd56de24a8d4dd",
-                "sha256:b016536f1b0d9236cfbf04dc23a9476a5c3be85dfe333bf85f9a9a71870bea7f"
+                "sha256:06461425dc23cffb5ae8e052229a67d856b95ab7c04a32c7e0e83771a6d25751",
+                "sha256:32834fda577244156a4078937cca1cf66d13921c0adb39d200c1b4a3f8e1c603"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.10'",
-            "version": "==26.1.1"
+            "version": "==26.1.2"
         },
         "ansible-runner": {
             "hashes": [
@@ -635,16 +635,16 @@
         },
         "onigurumacffi": {
             "hashes": [
-                "sha256:40f587bb4eaabcc0dadfcd6bc56ac2f8db0966e16c90588748410b3e14761715",
-                "sha256:56b583b9d2065fb7d36001d15d7951f5cb3143ff0d8be7daa330a0096db7483a",
-                "sha256:5bfbc1ef6e5d1179e22453f82437a824f9d5771e0ce65f3a72ca6b9c61226536",
-                "sha256:949af6f48b6dbdae42b1a4f0121d8904f03904b501bd918b6d18fc7c7ad83836",
-                "sha256:9e8585f593bd136a67ac69330dc778c05227503e6c03e0fa8cb82692c489ae35",
-                "sha256:c0fed9bcdaf289a8ecd8343f7b8a4cbabffcc37911be12c8087669edc5ca5a45",
-                "sha256:db36a8297f16e8e52621cb5826289c107e9e8016cf4ca00e0c81dc3d480b90c9"
+                "sha256:3aabcd932605f0a385c612ff22daa97acfa57e78add53bb4a173f281a3b9cf1f",
+                "sha256:6dda67bcbfe5ec8f819506befaa8542f7bc4dd89304dfae31810bf4f15dc2205",
+                "sha256:862795245ac165913f146e81d18e5419c91f98f50a5eccba02e1ba6d781e8e26",
+                "sha256:995a3a0d932df3995f6e9b081c4c5881ed6bc19c53d9c24d64a51eb21f46989c",
+                "sha256:a1f39d9edccc63010ee7667b6e8c029e856031adfac3f0581efe4cb71a1083ff",
+                "sha256:d2e195b0255f88616af19021ebd6344a00d5a0df01a78c8c43729cf0b9c9fb9c",
+                "sha256:d4fa9bee44a6d38a98b2237c67d9acdf27ed0c32d6c218125fe46681a5edea4d"
             ],
-            "markers": "python_version >= '3.9'",
-            "version": "==1.4.1"
+            "markers": "python_version >= '3.10'",
+            "version": "==1.5.0"
         },
         "packaging": {
             "hashes": [
@@ -1100,11 +1100,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
-                "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"
+                "sha256:22e0a2d69474c6ae4feb01951cb69d515ed23728cf96d05513d36e42b62b37cb",
+                "sha256:70b18734b607bd1da571d097d236cfcfacaf01de45717d59e6e04b96877532e0"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==80.9.0"
+            "version": "==82.0.0"
         },
         "smmap": {
             "hashes": [
