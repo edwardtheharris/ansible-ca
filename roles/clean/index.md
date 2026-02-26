@@ -22,7 +22,7 @@ ansible-playbook -t ca site.yml
 ### CA Clean readme
 
 ```{toctree}
-README
+readme
 ```
 
 ### CA Clean Playbook
