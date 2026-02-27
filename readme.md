@@ -195,5 +195,5 @@ docker build -t edwardtheharris/gitlab-ci:ansible-ca -f .gitlab/Dockerfile \
   --push --progress plain .
 ```
 
-More information about this image may be found in its 
+More information about this image may be found in its
 [Docker Hub repository](https://hub.docker.com/repository/docker/edwardtheharris/gitlab-ci/general).
