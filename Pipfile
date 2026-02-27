@@ -4,25 +4,26 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-gitpython = "*"
-loguru = "*"
-sphinx = "*"
-pipenv = "*"
-redis = "*"
+ansible = "*"
 ansible-lint = "*"
 ansible-navigator = "*"
+gitpython = "*"
+loguru = "*"
+pipenv = "*"
+redis = "*"
+sphinx = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}
 pylint = "*"
 sphinx = "*"
+sphinx-ansible = "*"
 sphinx-autobuild = "*"
 sphinx-book-theme = "*"
-sphinx-design = "*"
-version-query = "*"
 sphinx-copybutton = "*"
-sphinx-ansible = "*"
+sphinx-design = "*"
 sphinxcontrib-autoyaml = "*"
+version-query = "*"
 
 [pipenv]
 allow_prereleases = true
