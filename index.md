@@ -35,10 +35,8 @@ roles/secondary/index
 :caption: other information
 :maxdepth: 1
 
-.github/index
 readme
 license
-security
 ```
 
 ```{index} metadata; repository

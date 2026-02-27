@@ -28,10 +28,6 @@ ansible-playbook -t sign site.yml
 
 ### Sign Role Metadata
 
-```{autoyaml} roles/sign/meta/main.yml
-
-```
-
 ```{toctree}
 README
 ```
