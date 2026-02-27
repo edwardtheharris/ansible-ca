@@ -184,3 +184,16 @@ required [etcd](https://github.com/edwardtheharris/ansible-etcd) cluster.
 More information about creating as Certificate Authority with OpenSSL
 can be found in the
 [OpenSSL Certificate Authority Reference](https://jamielinux.com/docs/openssl-certificate-authority/introduction.html).
+
+## GitLab CI Pipeline
+
+The GitLab CI Pipeline for this repository uses a custom Docker image to run.
+If you need to build that image, you can do so with the following command.
+
+```{code-block} shell
+docker build -t edwardtheharris/gitlab-ci:ansible-ca -f .gitlab/Dockerfile \
+  --push --progress plain .
+```
+
+More information about this image may be found in its 
+[Docker Hub repository](https://hub.docker.com/repository/docker/edwardtheharris/gitlab-ci/general).
