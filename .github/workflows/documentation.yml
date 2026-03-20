@@ -97,7 +97,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@main
         with:
-          python-version: 3.11
+          python-version: 3.14
           cache: pipenv
       - name: Setup pages
         uses: actions/configure-pages@main
